@@ -1,0 +1,16 @@
+{% extends 'glowny.html' %}
+{% block tytul %}Rejestracja{% endblock %}
+{% load bootstrap %}
+
+{% block strona %}
+
+<div class="card" style="width: 25rem;">
+    <div class="card-body">
+        Rejestracja udana!<br>
+        Dziekujemy za to ze juz jestes z nami<br><br>
+        <a href="{% url 'login' %}" class="btn btn-success">Login</a> <a href="{% url 'wszystkie_filmy' %}" class="btn btn-primary">Glowna</a>
+    </div>
+</div>
+
+
+{% endblock %}

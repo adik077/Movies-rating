@@ -1,0 +1,56 @@
+{% extends 'glowny.html' %}
+{% block tytul %}Info{% endblock %}
+{% load static %}
+{% load bootstrap %}
+
+{% block strona %}
+
+        <div class="card" style="width: 36rem;">
+        <div class="card-body">
+            {% if film.plakat|length %}
+                <img src="/media/{{film.plakat}}" class="film-plakat">
+            {% else %}
+                <img src="{% static 'no_image.jpg' %}" class="film-plakat">
+            {% endif %}
+                <div class="container">
+                  <div class="row">
+                    <div class="col-9">
+                        <h5 class="card-title">{{film}}</h5>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                      <p><b>Premiera:</b> {{film.premiera}}</p>
+                      <p><b>Czas trwania: </b>{{film.dodatkowe.czas_trwania}}</p>
+                      <p>{{film.opis}}</p>
+                      <h4>Filmweb rating: </h4><h3>{{film.imbq_rating}}</h3>
+                  </div>
+
+                </div>
+         </div>
+        </div>
+        <br>
+        <h3>Komentarze</h3>
+
+        <div style="width: 36rem">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form_ocena|bootstrap}}
+            <br>
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
+        </div><br><br><hr>
+
+        {% for ocena in oceny  %}
+        <div class="card" style="width: 36rem;">
+            <div class="card-body">
+                <b>Gwiazdki:</b> {{ocena.gwiazdki}}<br>
+                <b>{{ocena.recenzja}}</b>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}
+
+
+
+

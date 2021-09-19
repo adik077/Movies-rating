@@ -1,0 +1,21 @@
+{% extends 'glowny.html' %}
+{% load bootstrap %}
+
+{% block tytul %}Usun{% endblock %}
+
+
+{% block strona %}
+<div class="card" style="width: 32rem;">
+  <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <h5 class="card-title">Czy napewno chcesz usunac film: "{{film.tytul}}"</h5>
+        <button type="submit" class="btn btn-danger">Usun film</button>
+          <a href="{% url 'wszystkie_filmy' %}" class="btn btn-success">Cofnij</a>
+      </form>
+  </div>
+</div>
+{% endblock %}
+
+
+

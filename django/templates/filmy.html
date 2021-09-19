@@ -1,0 +1,53 @@
+{% extends 'glowny.html' %}
+{% block tytul %}Filmy{% endblock %}
+{% load static %}
+{% block strona %}
+    <div class="jumbotron">
+        {% if request.user.is_authenticated %}
+         <h1 class="display-4">Witaj {{user.username|title}}</h1>
+         <a href="{% url 'logout' %}" class="btn btn-success">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-success">Login</a> <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+        {% endif %}
+    </div>
+    <br>
+    <hr>
+    <a href="{% url 'nowy_film' %}">Nowy film<i class="fas fa-plus-circle"></i></a>
+    <br><br>
+
+    {% if filmy|length == 0 %}
+        <h1>Brak filmow</h1>
+    {% else %}
+        <!--<h1>Ilosc filmow: {{filmy|length}}</h1>-->
+        {% for film in filmy %}
+
+        <div class="card" style="width: 36rem;">
+        <div class="card-body">
+            {% if film.plakat|length %}
+                <img src="/media/{{film.plakat}}" class="film-plakat">
+            {% else %}
+                <img src="{% static 'no_image.jpg' %}" class="film-plakat">
+            {% endif %}
+                <div class="container">
+                  <div class="row">
+                    <div class="col-9">
+                        <h5 class="card-title"><a href="{% url 'info_film' film.id %}" style="color:black;text-decoration:none">{{film}}</a></h5>
+                    </div>
+                    <div class="col">
+                      <a href="{% url 'edytuj_film' film.id %}"><i class="fas fa-2x fa-edit"></i></a> <a href="{% url 'usun_film' film.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <p>{{film.opis}}</p>
+                      <h4>{{film.imbq_rating}}</h4>
+                  </div>
+                </div>
+         </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+
+
